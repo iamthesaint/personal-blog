@@ -7,44 +7,47 @@ const backButton = document.querySelector('#back');
 // TODO: Create a function that builds an element and appends it to the DOM
 
 const createBlogPostEl = (blogData) => {
-    const listElement = document.createElement('li');
-    const articleElement = document.createElement('article');
-    articleElement.classList.add('blog-post');
-    const titleElement = document.createElement('h2');
-    titleElement.textContent = blogData.title;
-    articleElement.appendChild(titleElement);
-    const contentElement = document.createElement('blockquote');
-    contentElement.textContent = blogData.content;
-    articleElement.appendChild(contentElement);
-    const authorElement = document.createElement('p');
-    authorElement.textContent = `Posted by ${blogData.userName}`;
-    articleElement.appendChild(authorElement);
-    listElement.appendChild(articleElement);
-    mainElement.appendChild(listElement);
+
+    const blog = document.createElement('card');
+    blog.classList.add('card');
+
+    const title = document.createElement('h2');
+    title.textContent = blogData.title;
+
+    const content = document.createElement('p');
+    content.textContent = blogData.content;
+
+    const username = document.createElement('blockquote');
+    username.textContent = `Author: ${blogData.username}`;
+
+    blog.appendChild(title);
+    blog.appendChild(content);
+    blog.appendChild(username);
+
+
+    mainElement.appendChild(blog);
+    console.log('Blog post appended');
 }
+
 
 
 // TODO: Create a function that handles the case where there are no blog posts to display
 const noPosts = () => {
+    if (!mainElement) return;
     const message = document.createElement('p');
     message.textContent = "No Blog posts yet...";
     mainElement.appendChild(message);
+    console.log('No posts message appended');
 };
 
-
 // TODO: Create a function called `renderBlogList` that renders the list of blog posts if they exist. If not, call the no posts function.
-const displayBlogPosts = (blogData) => {
-    for (const blog of blogData) {
-        createBlogPostEl(blog);
-    }
-}
 
 const renderBlogList = () => {
     const blogData = readLocalStorage();
-    if (!blogData || blogData.length === 0) {
+    if (!Array.isArray(blogData) || blogData.length === 0) {
         noPosts();
     } else {
-        displayBlogPosts(blogData);
+        createBlogPostEl(blogData);
     }
 }
 

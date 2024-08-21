@@ -14,9 +14,9 @@ function formSubmit(event) {
         alert('Please fill out all fields');
         return;
     } else {
-        let blogData = {[userName]: userName, [title]: title, [content]: content};
+        let blogData = {username: userName, title: title, content: content};
         storeLocalStorage(blogData);
-    }
+        }
     let redirectURL = 'blog.html';
     redirectPage(redirectURL);
 }
